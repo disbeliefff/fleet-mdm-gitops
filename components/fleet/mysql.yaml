@@ -24,10 +24,10 @@ spec:
 
     resources:
       requests:
-        memory: 250M
+        memory: 350M
         cpu: 150m
       limits:
-        memory: 350M
+        memory: 500M
         cpu: 300m
 
     affinity:
