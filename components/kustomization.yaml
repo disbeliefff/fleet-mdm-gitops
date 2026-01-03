@@ -4,3 +4,4 @@ metadata:
   name: components
 resources:
   - mysql-operator/
+  - dragonfly-operator/
