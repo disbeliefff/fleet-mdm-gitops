@@ -18,7 +18,7 @@ spec:
     tls: true
 
   pxc:
-    size: 3
+    size: 1
     image: percona/percona-xtradb-cluster:8.0.42-33.1
     autoRecovery: true
 
@@ -48,7 +48,7 @@ spec:
 
   haproxy:
     enabled: true
-    size: 3
+    size: 1
     image: percona/haproxy:2.8.15
 
     resources:
