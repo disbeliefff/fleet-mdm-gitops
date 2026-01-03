@@ -3,6 +3,6 @@ kind: Kustomization
 metadata:
   name: components
 resources:
-  - mysql-operator/
+  # - mysql-operator/
   - dragonfly-operator/
   - fleet/
