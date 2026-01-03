@@ -20,9 +20,11 @@ spec:
   upgrade:
     remediation:
       retries: 3
-
   values:
     replicaCount: 1
+
+    watchAllNamespaces: true
+
     rbac:
       create: true
 
