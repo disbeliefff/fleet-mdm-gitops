@@ -15,7 +15,7 @@ spec:
     enabled: false
 
   unsafeFlags:
-    tls: true
+    tls: false
 
   pxc:
     size: 1
