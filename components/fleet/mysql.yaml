@@ -14,9 +14,6 @@ spec:
   tls:
     enabled: false
 
-  unsafeFlags:
-    tls: false
-
   pxc:
     size: 1
     image: percona/percona-xtradb-cluster:8.0.42-33.1
