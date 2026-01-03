@@ -1,0 +1,87 @@
+apiVersion: pxc.percona.com/v1
+kind: PerconaXtraDBCluster
+metadata:
+  name: fleet-cluster
+  namespace: fleet
+  finalizers:
+    - percona.com/delete-pxc-pods-in-order
+spec:
+  crVersion: 1.18.0
+  updateStrategy: SmartUpdate
+  upgradeOptions:
+    apply: disabled
+
+  tls:
+    enabled: false
+
+  unsafeFlags:
+    tls: true
+
+  pxc:
+    size: 3
+    image: percona/percona-xtradb-cluster:8.0.42-33.1
+    autoRecovery: true
+
+    resources:
+      requests:
+        memory: 250M
+        cpu: 150m
+      limits:
+        memory: 350M
+        cpu: 300m
+
+    affinity:
+      antiAffinityTopologyKey: "none"
+
+    podDisruptionBudget:
+      maxUnavailable: 1
+
+    volumeSpec:
+      persistentVolumeClaim:
+        storageClassName: local-path
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10G
+
+    gracePeriod: 30
+
+  haproxy:
+    enabled: true
+    size: 3
+    image: percona/haproxy:2.8.15
+
+    resources:
+      requests:
+        memory: 125M
+        cpu: 75m
+      limits:
+        memory: 250M
+        cpu: 100m
+
+    affinity:
+      antiAffinityTopologyKey: "none"
+
+    podDisruptionBudget:
+      maxUnavailable: 1
+
+    gracePeriod: 30
+
+  proxysql:
+    enabled: false
+
+  logcollector:
+    enabled: false
+
+  pmm:
+    enabled: false
+
+  users:
+    - name: fleet-admin
+      dbs:
+        - "*"
+      hosts:
+        - "%"
+      grants:
+        - ALL PRIVILEGES
+      withGrantOption: true
