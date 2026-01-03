@@ -17,6 +17,7 @@ spec:
   unsafeFlags:
     tls: true
     pxcSize: true
+    proxySize: true
 
   pxc:
     size: 1
