@@ -6,4 +6,4 @@ resources:
   - mysql.yaml
   - dragonfly.yaml
   - helm-repo.yaml
-  - helm-release.yaml
+  # - helm-release.yaml
