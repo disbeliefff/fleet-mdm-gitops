@@ -1,0 +1,75 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: fleet
+  namespace: fleet
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: fleet
+      version: "6.7.5"
+      sourceRef:
+        kind: HelmRepository
+        name: fleet
+        namespace: fleet
+  values:
+    hostName: fleet.homelab.local
+
+    replicas: 1
+    resources:
+      limits:
+        cpu: 1
+        memory: 4Gi
+      requests:
+        cpu: 0.1
+        memory: 512Mi
+
+    ingress:
+      enabled: true
+      className: "traefik"
+      hosts:
+        - host: fleet.homelab.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+
+    fleet:
+      secretName: fleet-internal
+      autoApplySQLMigrations: true
+
+    logging:
+      debug: true
+
+    vulnProcessing:
+      dedicated: false
+
+    database:
+      address: fleet-cluster-haproxy:3306
+      database: fleet
+      username: fleet-admin
+      secretName: fleet-cluster-custom-user-secret
+      passwordKey: fleet-admin
+      maxOpenConns: 50
+      maxIdleConns: 50
+      tls:
+        enabled: false
+
+    database_read_replica:
+      address: fleet-cluster-haproxy-replicas:3306
+      database: fleet
+      username: fleet-admin
+      secretName: fleet-cluster-custom-user-secret
+      passwordKey: fleet-admin
+      tls:
+        enabled: false
+
+    cache:
+      address: dragonfly-fleet:6379
+      database: "0"
+      usePassword: false
+
+    mysql:
+      enabled: false
+    redis:
+      enabled: false
