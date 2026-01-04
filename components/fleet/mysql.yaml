@@ -20,7 +20,7 @@ spec:
     proxySize: true
 
   pxc:
-    size: 1
+    size: 3
     image: percona/percona-xtradb-cluster:8.0.42-33.1
     autoRecovery: true
 
@@ -50,7 +50,7 @@ spec:
 
   haproxy:
     enabled: true
-    size: 1
+    size: 3
     image: percona/haproxy:2.8.15
 
     resources:

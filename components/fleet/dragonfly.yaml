@@ -4,4 +4,4 @@ metadata:
   name: dragonfly-fleet
   namespace: fleet
 spec:
-  replicas: 1
+  replicas: 3
